@@ -1,0 +1,53 @@
+/*IMPORTANT*/
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'), url(https://example.com/MaterialIcons-Regular.woff) format('woff'), url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: "Raleway";
+    background: var(--secondaryShade);
+    color: white;
+    --primary: rgb(211, 13, 13);
+    --primaryShade: white;
+    --secondaryShade: rgb(51, 48, 54);
+    --tertiaryShade: rgb(32, 32, 39);
+}
+
+*::-webkit-scrollbar {
+    width: 14px;
+    background: var(--secondaryShade);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--secondaryShade);
+    box-shadow: rgba(255, 255, 255, 0.2) inset 0 0 0 1000px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #36394580;
+    box-shadow: rgba(255, 255, 255, 0.4) inset 0 0 0 1000px;
+}
+
+* {
+    all: unset;
+}
+
+title {
+    display: none;
+}
+
+
+/* Network Visuals */
+
+.networkCanvas {}
