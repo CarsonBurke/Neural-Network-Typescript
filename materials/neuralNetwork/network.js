@@ -21,6 +21,8 @@ NeuralNetwork.prototype.construct = function(inputCount, outputCount) {
 
     for (let i = 0; i < inputCount; i++) {
 
+        network.weightLayers[0].push([0])
+
         network.activationLayers[0].push(0)
     }
 
@@ -29,7 +31,16 @@ NeuralNetwork.prototype.construct = function(inputCount, outputCount) {
         network.weightLayers.push([])
         network.activationLayers.push([])
 
-        for (let i = 0; i < networkManager.hiddenPerceptronCount; i++) {
+        for (let i1 = 0; i1 < networkManager.hiddenPerceptronCount; i1++) {
+
+            network.weightLayers[layerIndex].push([])
+
+            const previousLayerOutputCount = network.activationLayers[layerIndex - 1].length
+
+            for (let i2 = 0; i2 < previousLayerOutputCount; i2++) {
+
+                network.weightLayers[layerIndex][i1].push(0)
+            }
 
             network.activationLayers[layerIndex].push(0)
         }
@@ -38,10 +49,22 @@ NeuralNetwork.prototype.construct = function(inputCount, outputCount) {
     network.weightLayers.push([])
     network.activationLayers.push([])
 
-    for (let i = 0; i < outputCount; i++) {
+    const lastLayerIndex = [network.activationLayers.length - 1],
+        previousLayerOutputCount = network.activationLayers[lastLayerIndex - 1].length
 
-        network.activationLayers[network.activationLayers.length - 1].push(0)
+    for (let i1 = 0; i1 < outputCount; i1++) {
+
+        network.weightLayers[lastLayerIndex].push([])
+
+        for (let i2 = 0; i2 < previousLayerOutputCount; i2++) {
+
+            network.weightLayers[lastLayerIndex][i1].push(0)
+        }
+
+        network.activationLayers[lastLayerIndex].push(0)
     }
+
+
 }
 
 NeuralNetwork.prototype.clone = function() {
@@ -55,16 +78,23 @@ NeuralNetwork.prototype.forwardPropagate = function(inputValues) {
 
     const network = this
 
-    for (let activationsIndex = 0; activationsIndex < network.activationLayers[0].length; activationsIndex++) {
+    //
 
-        network.activationLayers[0][activationsIndex] = inputValues[activationsIndex] * network.weightLayers[0][activationsIndex]
+    for (let i = 0; i < inputValues.length; i++) {
+
+        network.activationLayers[0][i] = Math.max(0, inputValues[i] * network.weightLayers[0][i])
     }
 
-    for (let layerIndex = 1; layerIndex < network.activationLayers.length; layerIndex++) {
+    for (let layerIndex = 1; layerIndex < networkManager.hiddenLayersCount + 2; layerIndex++) {
 
-        for (let activationsIndex = 0; activationsIndex < network.activationLayers[activationsIndex].length; activationsIndex++) {
+        for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
 
-            network.activationLayers[layerIndex][activationsIndex] = inputValues[activationsIndex] * network.weightLayers[layerIndex][activationsIndex]
+            for (let previousLayerActivationsIndex = 0; previousLayerActivationsIndex < network.activationLayers[layerIndex - 1].length; previousLayerActivationsIndex++) {
+
+                network.activationLayers[layerIndex][activationsIndex] += network.activationLayers[layerIndex - 1][previousLayerActivationsIndex] * network.weightLayers[layerIndex][activationsIndex][previousLayerActivationsIndex]
+            }
+
+            network.activationLayers[layerIndex][activationsIndex] = Math.max(0, network.activationLayers[layerIndex][activationsIndex])
         }
     }
 }
@@ -75,9 +105,12 @@ NeuralNetwork.prototype.learn = function() {
 
     for (let layerIndex = 0; layerIndex < network.weightLayers.length; layerIndex++) {
 
-        for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex].length; weightIndex++) {
+        for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
 
-            network.weightLayers[layerIndex][weightIndex] += Math.random() * networkManager.learningRate - Math.random() * networkManager.learningRate
+            for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex][activationsIndex].length; weightIndex++) {
+
+                network.weightLayers[layerIndex][activationsIndex][weightIndex] += Math.random() * networkManager.learningRate - Math.random() * networkManager.learningRate
+            }
         }
     }
 }

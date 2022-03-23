@@ -1,5 +1,3 @@
-setInterval(runNetworks, 100)
-
 const inputs = [
         { name: '#1', value: 1 },
         { name: '#5', value: 5 },
@@ -14,15 +12,17 @@ for (const input of inputs) {
     inputValues.push(input.value)
 }
 
-createNetworks()
+window.addEventListener('load', startNetworks)
 
-function createNetworks() {
+function startNetworks() {
 
     const network = new NeuralNetwork()
     network.construct(inputs.length, outputs.length)
+
+    console.log(network)
 }
 
-runNetworks()
+setInterval(runNetworks, 1000)
 
 function runNetworks() {
 
@@ -30,8 +30,8 @@ function runNetworks() {
 
         const network = networkManager.networks[networkID]
 
-        network.forwardPropagate(inputValues)
+        network.learn()
 
-        console.log(network)
+        network.forwardPropagate(inputValues)
     }
 }
