@@ -237,12 +237,14 @@ NeuralNetwork.prototype.createVisuals = function(inputs, outputs) {
 
         for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
 
+            network.lineLayers[layerIndex].push([])
+
             for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex][activationsIndex].length; weightIndex++) {
 
                 const lineVisual = document.createElementNS('http://www.w3.org/2000/svg', 'line')
 
                 network.linesParent.appendChild(lineVisual)
-                network.lineLayers[layerIndex].push(lineVisual)
+                network.lineLayers[layerIndex][activationsIndex].push(lineVisual)
 
                 lineVisual.style.stroke = network.weightLayers[layerIndex][activationsIndex][weightIndex] <= 0 ? networkManager.negativeColor : networkManager.activationColor
 
@@ -294,12 +296,14 @@ NeuralNetwork.prototype.updateVisuals = function(inputValues) {
 
     for (let layerIndex = 1; layerIndex < network.activationLayers.length; layerIndex++) {
 
+        let i = 0
+
         for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
 
             for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex][activationsIndex].length; weightIndex++) {
 
-                const lineVisual = network.lineLayers[layerIndex][weightIndex]
-
+                const lineVisual = network.lineLayers[layerIndex][activationsIndex][weightIndex]
+                lineVisual.setAttribute('text', network.weightLayers[layerIndex][activationsIndex][weightIndex])
                 lineVisual.style.stroke = network.weightLayers[layerIndex][activationsIndex][weightIndex] <= 0 ? networkManager.negativeColor : networkManager.activationColor
             }
         }

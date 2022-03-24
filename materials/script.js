@@ -24,7 +24,7 @@ function startNetworks() {
     console.log(network)
 }
 
-setInterval(runNetworks, 1000)
+setInterval(runNetworks, 1)
 
 function runNetworks() {
 

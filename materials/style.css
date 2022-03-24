@@ -67,6 +67,7 @@ div {
     gap: 20px;
     width: fit-content;
     margin: auto;
+    user-select: none;
 }
 
 .networkGuide {
