@@ -12,6 +12,10 @@ class NetworkManager {
 
         networkManager.hiddenLayersCount = 2
         networkManager.hiddenPerceptronCount = 3
+
+        // Visuals
+
+        networkManager.visualsParent = document.getElementsByClassName('networkManagerParent')[0]
     }
 }
 

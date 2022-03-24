@@ -1,10 +1,10 @@
 const inputs = [
-        { name: '#1', value: 1 },
+        { name: '#1 sajfhdsjkfhsdjhk jsdfhjksdhfksdj sdjfhsdjkfhsdjk', value: 1 },
         { name: '#5', value: 5 },
     ],
     inputValues = [],
     outputs = [
-        { name: 'action1', operation: function() {} },
+        { name: 'action #1 asjfdsjkgh sdjgkydg jghdfkjghfd fdhgjdfkhgkdfjk', operation: function() {} },
     ]
 
 for (const input of inputs) {
@@ -18,6 +18,7 @@ function startNetworks() {
 
     const network = new NeuralNetwork()
     network.construct(inputs.length, outputs.length)
+    network.createVisuals(inputs, outputs)
 
     console.log(network)
 }

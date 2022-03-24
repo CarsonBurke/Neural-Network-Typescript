@@ -50,4 +50,61 @@ title {
 
 /* Network Visuals */
 
-.networkCanvas {}
+.networkManagerParent {
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.networkParent {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    justify-items: center;
+    align-items: center;
+}
+
+.perceptronLayer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputPerceptronLayer {
+    background: rgb(0, 216, 0);
+}
+
+.hiddenPerceptronLayer {
+    background: rgb(255, 119, 8);
+}
+
+.outputPerceptronLayer {
+    background: rgb(230, 0, 0);
+}
+
+.perceptronLayer div {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+
+.descriptionLayer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputDescriptionLayer p {
+    text-align: right;
+}
+
+.descriptionLayer p {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+}
