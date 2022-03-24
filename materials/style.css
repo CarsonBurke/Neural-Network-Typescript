@@ -69,15 +69,15 @@ title {
     gap: 10px;
 }
 
-.inputPerceptronLayer {
+.inputPerceptronLayer div {
     background: rgb(0, 216, 0);
 }
 
-.hiddenPerceptronLayer {
+.hiddenPerceptronLayer div {
     background: rgb(255, 119, 8);
 }
 
-.outputPerceptronLayer {
+.outputPerceptronLayer div {
     background: rgb(230, 0, 0);
 }
 

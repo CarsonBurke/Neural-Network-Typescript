@@ -1,10 +1,9 @@
 const inputs = [
-        { name: '#1 sajfhdsjkfhsdjhk jsdfhjksdhfksdj sdjfhsdjkfhsdjk', value: 1 },
-        { name: '#5', value: 5 },
+        { name: 'Information about thomas', value: 10 },
     ],
     inputValues = [],
     outputs = [
-        { name: 'action #1 asjfdsjkgh sdjgkydg jghdfkjghfd fdhgjdfkhgkdfjk', operation: function() {} },
+        { name: 'Thomas is cool', operation: function() { console.log('thomas is cool') } },
     ]
 
 for (const input of inputs) {
