@@ -10,13 +10,13 @@ class NetworkManager {
 
         //
 
-        networkManager.learningRate = 0.1
+        networkManager.learningRate = 1
         networkManager.bias = 0
 
         // Network structure settings
 
-        networkManager.hiddenLayersCount = 2
-        networkManager.hiddenPerceptronCount = 3
+        networkManager.hiddenLayersCount = 5
+        networkManager.hiddenPerceptronCount = 5
     }
 }
 

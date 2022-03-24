@@ -101,6 +101,13 @@ NeuralNetwork.prototype.forwardPropagate = function(inputValues) {
     }
 }
 
+NeuralNetwork.prototype.backPropagate = function(scoredOutputs) {
+
+    const network = this
+
+
+}
+
 NeuralNetwork.prototype.learn = function() {
 
     const network = this

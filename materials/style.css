@@ -124,20 +124,21 @@ div {
 .inputLayer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
 .inputLayer p {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     max-width: 200px;
     font-weight: 500;
+    height: 50px;
+    line-height: 50px;
 }
 
 .descriptionLayer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
@@ -146,10 +147,10 @@ div {
 }
 
 .descriptionLayer p {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     max-width: 200px;
+    font-weight: 500;
+    height: 50px;
+    line-height: 50px;
 }
 
 .linesParent {
