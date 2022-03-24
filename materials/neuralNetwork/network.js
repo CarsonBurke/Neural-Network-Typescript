@@ -76,14 +76,20 @@ NeuralNetwork.prototype.forwardPropagate = function(inputValues) {
 
     const network = this
 
+    // First layer using inputValues
+
     for (let i = 0; i < inputValues.length; i++) {
 
         network.activationLayers[0][i] = Math.max(0, inputValues[i] * network.weightLayers[0][i] + networkManager.bias)
     }
 
-    for (let layerIndex = 1; layerIndex < network.activationLayers - 1; layerIndex++) {
+    // Following layers using previous perceptron's values
+
+    for (let layerIndex = 1; layerIndex < network.activationLayers.length; layerIndex++) {
 
         for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
+
+            network.activationLayers[layerIndex][activationsIndex] = 0
 
             for (let previousLayerActivationsIndex = 0; previousLayerActivationsIndex < network.activationLayers[layerIndex - 1].length; previousLayerActivationsIndex++) {
 

@@ -1,7 +1,7 @@
 networkManager.initVisuals()
 
 const inputs = [
-        { name: 'Information about thomas', value: 10 },
+        { name: 'Information about thomas', value: 100 },
     ],
     inputValues = [],
     outputs = [
@@ -24,7 +24,7 @@ function startNetworks() {
     console.log(network)
 }
 
-setInterval(runNetworks, 1)
+setInterval(runNetworks, 100)
 
 function runNetworks() {
 

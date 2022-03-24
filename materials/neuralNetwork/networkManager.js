@@ -11,7 +11,7 @@ class NetworkManager {
         //
 
         networkManager.learningRate = 0.1
-        networkManager.bias = 1
+        networkManager.bias = 0
 
         // Network structure settings
 
