@@ -4,18 +4,19 @@ class NetworkManager {
         const networkManager = this
 
         networkManager.networks = {}
+        networkManager.IDIndex = 0
+        networkManager.activationColor = 'rgb(0, 137, 236)'
+        networkManager.negativeColor = 'rgb(241, 0, 19)'
+
+        //
 
         networkManager.learningRate = 0.1
-        networkManager.IDIndex = 0
+        networkManager.bias = 1
 
         // Network structure settings
 
-        networkManager.hiddenLayersCount = 10
-        networkManager.hiddenPerceptronCount = 10
-
-        // Visuals
-
-        networkManager.visualsParent = document.getElementsByClassName('networkManagerParent')[0]
+        networkManager.hiddenLayersCount = 2
+        networkManager.hiddenPerceptronCount = 3
     }
 }
 
@@ -24,4 +25,12 @@ const networkManager = new NetworkManager()
 NetworkManager.prototype.newID = function() {
 
     return networkManager.IDIndex++
+}
+
+NetworkManager.prototype.initVisuals = function() {
+
+    networkManager.visualsParent = document.getElementsByClassName('networkManagerParent')[0]
+
+    document.getElementById('colorGuideActivation').style.background = networkManager.activationColor
+    document.getElementById('colorGuideNegative').style.background = networkManager.negativeColor
 }

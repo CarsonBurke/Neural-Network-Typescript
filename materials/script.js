@@ -1,3 +1,5 @@
+networkManager.initVisuals()
+
 const inputs = [
         { name: 'Information about thomas', value: 10 },
     ],
@@ -33,5 +35,7 @@ function runNetworks() {
         network.learn()
 
         network.forwardPropagate(inputValues)
+
+        network.updateVisuals(inputValues)
     }
 }

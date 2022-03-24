@@ -47,20 +47,57 @@ title {
     display: none;
 }
 
+div {
+    display: block;
+}
+
 
 /* Network Visuals */
 
 .networkManagerParent {
     border-radius: 8px;
     padding: 20px;
+    background: var(--tertiaryShade);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: fit-content;
+    margin: auto;
+}
+
+.networkGuide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: var(--secondaryShade);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 15px;
+}
+
+.colorGuideParent {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.colorGuideColor {
+    display: block;
+    width: 15px;
+    height: 15px;
 }
 
 .networkParent {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     position: relative;
     justify-items: center;
     align-items: center;
+    width: fit-content;
 }
 
 .perceptronLayer {
@@ -69,26 +106,31 @@ title {
     gap: 10px;
 }
 
-.inputPerceptronLayer div {
-    background: rgb(0, 216, 0);
-}
-
-.hiddenPerceptronLayer div {
-    background: rgb(255, 119, 8);
-}
-
-.outputPerceptronLayer div {
-    background: rgb(230, 0, 0);
-}
-
 .perceptronLayer div {
+    z-index: 1;
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    color: black;
+    background: black;
+    color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 500;
+    border: 2px solid transparent;
+}
+
+.inputLayer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputLayer p {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 200px;
     font-weight: 500;
 }
 
@@ -106,5 +148,16 @@ title {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 200px;
+    max-width: 200px;
+}
+
+.linesParent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.linesParent line {
+    stroke-width: 2px;
 }

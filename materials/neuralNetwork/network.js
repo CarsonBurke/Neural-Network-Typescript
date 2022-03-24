@@ -78,7 +78,7 @@ NeuralNetwork.prototype.forwardPropagate = function(inputValues) {
 
     for (let i = 0; i < inputValues.length; i++) {
 
-        network.activationLayers[0][i] = Math.max(0, inputValues[i] * network.weightLayers[0][i])
+        network.activationLayers[0][i] = Math.max(0, inputValues[i] * network.weightLayers[0][i] + networkManager.bias)
     }
 
     for (let layerIndex = 1; layerIndex < network.activationLayers - 1; layerIndex++) {
@@ -90,7 +90,7 @@ NeuralNetwork.prototype.forwardPropagate = function(inputValues) {
                 network.activationLayers[layerIndex][activationsIndex] += network.activationLayers[layerIndex - 1][previousLayerActivationsIndex] * network.weightLayers[layerIndex][activationsIndex][previousLayerActivationsIndex]
             }
 
-            network.activationLayers[layerIndex][activationsIndex] = Math.max(0, network.activationLayers[layerIndex][activationsIndex])
+            network.activationLayers[layerIndex][activationsIndex] = Math.max(0, network.activationLayers[layerIndex][activationsIndex] + networkManager.bias)
         }
     }
 }
@@ -115,19 +115,21 @@ NeuralNetwork.prototype.createVisuals = function(inputs, outputs) {
 
     const network = this
 
+    // Visual parents
+
     network.visualsParent = document.createElement('div')
-    network.visualsParent.classList.add('networkParent')
 
     networkManager.visualsParent.appendChild(network.visualsParent)
 
-    network.perceptronLayers = []
-    network.perceptronVisualLayers = []
+    network.visualsParent.classList.add('networkParent')
 
-    network.descriptionLayers = []
-    network.descriptionVisualLayers = [
-        [],
-        []
-    ]
+    let descriptionLayers = [],
+        descriptionVisualLayers = [
+            [],
+            []
+        ]
+
+    // Input descriptions
 
     let descriptionLayerVisual = document.createElement('div')
     descriptionLayerVisual.classList.add('descriptionLayer')
@@ -135,63 +137,171 @@ NeuralNetwork.prototype.createVisuals = function(inputs, outputs) {
     descriptionLayerVisual.classList.add('inputDescriptionLayer')
 
     network.visualsParent.appendChild(descriptionLayerVisual)
-    network.descriptionLayers.push(descriptionLayerVisual)
+    descriptionLayers.push(descriptionLayerVisual)
 
     for (let activationsIndex = 0; activationsIndex < network.activationLayers[0].length; activationsIndex++) {
 
         const descriptionVisual = document.createElement('p')
 
-        descriptionVisual.innerText = inputs[activationsIndex].name
+        descriptionLayers[0].appendChild(descriptionVisual)
+        descriptionVisualLayers[0].push(descriptionVisual)
 
-        network.descriptionLayers[0].appendChild(descriptionVisual)
-        network.descriptionVisualLayers[0].push(descriptionVisual)
+        descriptionVisual.innerText = inputs[activationsIndex].name
     }
+
+    // Inputs
+
+    network.inputLayerVisuals = []
+
+    network.inputLayer = document.createElement('div')
+
+    network.visualsParent.appendChild(network.inputLayer)
+
+    network.inputLayer.classList.add('inputLayer')
+
+    for (let activationsIndex = 0; activationsIndex < network.activationLayers[0].length; activationsIndex++) {
+
+        const inputVisual = document.createElement('p'),
+            activation = inputs[activationsIndex].value
+
+        network.inputLayer.appendChild(inputVisual)
+        network.inputLayerVisuals.push(inputVisual)
+
+        inputVisual.style.color = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
+
+        inputVisual.innerText = Math.floor(activation * 100) / 100 == 0 ? 0 : activation.toFixed(2)
+    }
+
+    // Perceptrons and layers
+
+    network.perceptronLayers = []
+    network.perceptronVisualLayers = []
 
     for (let layerIndex = 0; layerIndex < network.activationLayers.length; layerIndex++) {
 
         network.perceptronVisualLayers.push([])
 
         const perceptronLayerVisual = document.createElement('div')
-        perceptronLayerVisual.classList.add('perceptronLayer')
-
-        if (layerIndex == 0) perceptronLayerVisual.classList.add('inputPerceptronLayer')
-        else if (layerIndex == network.activationLayers.length - 1) perceptronLayerVisual.classList.add('outputPerceptronLayer')
-        else perceptronLayerVisual.classList.add('hiddenPerceptronLayer')
 
         network.visualsParent.appendChild(perceptronLayerVisual)
         network.perceptronLayers.push(perceptronLayerVisual)
 
+        perceptronLayerVisual.classList.add('perceptronLayer')
+
         for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
 
-            const perceptronVisual = document.createElement('div')
-
-            perceptronVisual.innerText = network.activationLayers[layerIndex][activationsIndex]
+            const perceptronVisual = document.createElement('div'),
+                activation = network.activationLayers[layerIndex][activationsIndex]
 
             perceptronLayerVisual.appendChild(perceptronVisual)
             network.perceptronVisualLayers[layerIndex].push(perceptronVisual)
+
+            perceptronVisual.style.borderColor = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
+
+            perceptronVisual.innerText = Math.floor(activation * 100) / 100 == 0 ? 0 : activation.toFixed(2)
         }
     }
+
+    // Output descriptions
 
     descriptionLayerVisual = document.createElement('div')
     descriptionLayerVisual.classList.add('descriptionLayer')
 
     network.visualsParent.appendChild(descriptionLayerVisual)
-    network.descriptionLayers.push(descriptionLayerVisual)
+    descriptionLayers.push(descriptionLayerVisual)
 
     for (let activationsIndex = 0; activationsIndex < network.activationLayers[network.activationLayers.length - 1].length; activationsIndex++) {
 
         const descriptionVisual = document.createElement('p')
 
-        descriptionVisual.innerText = outputs[activationsIndex].name
+        descriptionLayers[1].appendChild(descriptionVisual)
+        descriptionVisualLayers[1].push(descriptionVisual)
 
-        network.descriptionLayers[1].appendChild(descriptionVisual)
-        network.descriptionVisualLayers[1].push(descriptionVisual)
+        descriptionVisual.innerText = outputs[activationsIndex].name
+    }
+
+    // Lines
+
+    network.linesParent = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    network.linesParent.classList.add('linesParent')
+
+    network.visualsParent.appendChild(network.linesParent)
+
+    network.lineLayers = [
+        []
+    ]
+
+    for (let layerIndex = 1; layerIndex < network.activationLayers.length; layerIndex++) {
+
+        network.lineLayers.push([])
+
+        for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
+
+            for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex][activationsIndex].length; weightIndex++) {
+
+                const lineVisual = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+
+                network.linesParent.appendChild(lineVisual)
+                network.lineLayers[layerIndex].push(lineVisual)
+
+                lineVisual.style.stroke = network.weightLayers[layerIndex][activationsIndex][weightIndex] <= 0 ? networkManager.negativeColor : networkManager.activationColor
+
+                const perceptron1VisualRect = network.perceptronVisualLayers[layerIndex - 1][weightIndex].getBoundingClientRect(),
+                    perceptron2VisualRect = network.perceptronVisualLayers[layerIndex][activationsIndex].getBoundingClientRect(),
+                    visualsParentRect = network.visualsParent.getBoundingClientRect()
+
+                lineVisual.setAttribute('x1', Math.floor(perceptron1VisualRect.left + perceptron1VisualRect.width / 2 - visualsParentRect.left))
+                lineVisual.setAttribute('y1', Math.floor(perceptron1VisualRect.top + perceptron1VisualRect.height / 2 - visualsParentRect.top))
+                lineVisual.setAttribute('x2', Math.floor(perceptron2VisualRect.left + perceptron2VisualRect.width / 2 - visualsParentRect.left))
+                lineVisual.setAttribute('y2', Math.floor(perceptron2VisualRect.top + perceptron2VisualRect.height / 2 - visualsParentRect.top))
+            }
+        }
     }
 }
 
-NeuralNetwork.prototype.updateVisuals = function() {
+NeuralNetwork.prototype.updateVisuals = function(inputValues) {
 
     const network = this
 
+    // Inputs
 
+    for (let activationsIndex = 0; activationsIndex < network.activationLayers[0].length; activationsIndex++) {
+
+        const inputVisual = network.inputLayerVisuals[activationsIndex],
+            activation = inputValues[activationsIndex]
+
+        inputVisual.style.color = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
+
+        inputVisual.innerText = Math.floor(activation * 100) / 100 == 0 ? 0 : activation.toFixed(2)
+    }
+
+    // Perceptrons and layers
+
+    for (let layerIndex = 0; layerIndex < network.activationLayers.length; layerIndex++) {
+
+        for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
+
+            const perceptronVisual = network.perceptronVisualLayers[layerIndex][activationsIndex],
+                activation = network.activationLayers[layerIndex][activationsIndex]
+
+            perceptronVisual.style.borderColor = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
+
+            perceptronVisual.innerText = Math.floor(activation * 100) / 100 == 0 ? 0 : activation.toFixed(2)
+        }
+    }
+
+    // Lines
+
+    for (let layerIndex = 1; layerIndex < network.activationLayers.length; layerIndex++) {
+
+        for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
+
+            for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex][activationsIndex].length; weightIndex++) {
+
+                const lineVisual = network.lineLayers[layerIndex][weightIndex]
+
+                lineVisual.style.stroke = network.weightLayers[layerIndex][activationsIndex][weightIndex] <= 0 ? networkManager.negativeColor : networkManager.activationColor
+            }
+        }
+    }
 }
