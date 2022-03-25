@@ -19,6 +19,7 @@ function startNetworks() {
 }
 
 setInterval(runNetworks, 1000)
+setInterval(duplicateNetworks, 1000)
 
 function runNetworks() {
 
@@ -32,4 +33,12 @@ function runNetworks() {
 
         network.learn()
     }
+}
+
+function duplicateNetworks() {
+
+    const network = Object.values(networkManager.networks)[0]
+
+    const newNetwork = network.clone(inputs)
+    newNetwork.createVisuals(inputs, outputs)
 }

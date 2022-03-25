@@ -1,10 +1,10 @@
 class NeuralNetwork {
-    constructor(weights = [], activations = []) {
+    constructor(weightLayers = [], activationLayers = []) {
 
         const network = this
 
-        network.weightLayers = weights
-        network.activationLayers = activations
+        network.weightLayers = weightLayers
+        network.activationLayers = activationLayers
 
         network.ID = networkManager.newID()
 
@@ -69,7 +69,7 @@ NeuralNetwork.prototype.clone = function() {
 
     const network = this
 
-    return new NeuralNetwork(network.weightLayers)
+    return new NeuralNetwork(network.weightLayers, network.activationLayers)
 }
 
 NeuralNetwork.prototype.forwardPropagate = function(inputs) {
