@@ -4,16 +4,10 @@ const inputs = [{
         name: 'X',
         value: 10
     }, { name: 'Y', value: 10 }, ],
-    inputValues = [],
     outputs = [
         { name: 'X', operation: function() {} },
         { name: 'Y', operation: function() {} },
     ]
-
-for (const input of inputs) {
-
-    inputValues.push(input.value)
-}
 
 window.addEventListener('load', startNetworks)
 
@@ -32,9 +26,9 @@ function runNetworks() {
 
         const network = networkManager.networks[networkID]
 
-        network.forwardPropagate(inputValues)
+        network.forwardPropagate(inputs)
 
-        network.updateVisuals(inputValues)
+        network.updateVisuals(inputs)
 
         network.learn()
     }

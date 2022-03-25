@@ -72,15 +72,15 @@ NeuralNetwork.prototype.clone = function() {
     return new NeuralNetwork(network.weightLayers)
 }
 
-NeuralNetwork.prototype.forwardPropagate = function(inputValues) {
+NeuralNetwork.prototype.forwardPropagate = function(inputs) {
 
     const network = this
 
-    // First layer using inputValues
+    // First layer using inputs
 
-    for (let i = 0; i < inputValues.length; i++) {
+    for (let i = 0; i < inputs.length; i++) {
 
-        network.activationLayers[0][i] = Math.max(0, inputValues[i] * network.weightLayers[0][i] + networkManager.bias)
+        network.activationLayers[0][i] = Math.max(0, inputs[i].value * network.weightLayers[0][i] + networkManager.bias)
     }
 
     // Following layers using previous perceptron's values
@@ -274,7 +274,7 @@ NeuralNetwork.prototype.createVisuals = function(inputs, outputs) {
     }
 }
 
-NeuralNetwork.prototype.updateVisuals = function(inputValues) {
+NeuralNetwork.prototype.updateVisuals = function(inputs) {
 
     const network = this
 
@@ -283,7 +283,7 @@ NeuralNetwork.prototype.updateVisuals = function(inputValues) {
     for (let activationsIndex = 0; activationsIndex < network.activationLayers[0].length; activationsIndex++) {
 
         const inputVisual = network.inputLayerVisuals[activationsIndex],
-            activation = inputValues[activationsIndex]
+            activation = inputs[activationsIndex].value
 
         inputVisual.style.color = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
 
