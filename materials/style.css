@@ -67,7 +67,6 @@ div {
     gap: 20px;
     width: fit-content;
     margin: auto;
-    user-select: none;
 }
 
 .networkGuide {
@@ -99,6 +98,7 @@ div {
     justify-items: center;
     align-items: center;
     width: fit-content;
+    user-select: none;
 }
 
 .perceptronLayer {

@@ -24,7 +24,7 @@ function startNetworks() {
     network.createVisuals(inputs, outputs)
 }
 
-setInterval(runNetworks, 100)
+setInterval(runNetworks, 1000)
 
 function runNetworks() {
 
