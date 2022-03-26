@@ -117,6 +117,7 @@ div {
     align-items: center;
     font-weight: 500;
     border: 2px solid transparent;
+    overflow: hidden;
 }
 
 .inputLayer {
