@@ -65,13 +65,6 @@ NeuralNetwork.prototype.construct = function(inputCount, outputCount) {
     }
 }
 
-NeuralNetwork.prototype.clone = function() {
-
-    const network = this
-
-    return new NeuralNetwork(network.weightLayers, network.activationLayers)
-}
-
 NeuralNetwork.prototype.forwardPropagate = function(inputs) {
 
     const network = this
@@ -308,8 +301,6 @@ NeuralNetwork.prototype.updateVisuals = function(inputs) {
     // Lines
 
     for (let layerIndex = 1; layerIndex < network.activationLayers.length; layerIndex++) {
-
-        let i = 0
 
         for (let activationsIndex = 0; activationsIndex < network.activationLayers[layerIndex].length; activationsIndex++) {
 

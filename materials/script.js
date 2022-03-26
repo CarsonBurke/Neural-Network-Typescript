@@ -1,9 +1,9 @@
 networkManager.initVisuals()
 
-const inputs = [{
-        name: 'X',
-        value: 10
-    }, { name: 'Y', value: 10 }, ],
+const inputs = [
+        { name: 'X', value: 10 },
+        { name: 'Y', value: 10 },
+    ],
     outputs = [
         { name: 'X', operation: function() {} },
         { name: 'Y', operation: function() {} },
@@ -17,7 +17,7 @@ function startNetworks() {
     network.construct(inputs.length, outputs.length)
     network.createVisuals(inputs, outputs)
 
-    const newNetwork = network.clone(inputs)
+    const newNetwork = new NeuralNetwork(network.weightLayers, network.activationLayers)
     newNetwork.createVisuals(inputs, outputs)
 }
 
