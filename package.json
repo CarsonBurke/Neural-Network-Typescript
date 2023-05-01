@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "tsc",
+    "init": "npx tsc -init"
+  },
+  "dependencies": {
+    "typescript": "^5.0.4"
+  }
+}
