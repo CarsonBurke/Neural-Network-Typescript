@@ -1,13 +1,25 @@
 import { networkManager } from "./networkManager"
 import { mutateDelta, relu } from "./networkUtils"
 
-export interface Input {
+export class Input {
     name: string
     values: number[]
     weightIDs: string[]
+
+    constructor(name: string, values: number[], weightIDs: string[]) {
+
+        this.name = name
+        this.values = values
+        this.weightIDs = weightIDs
+    }
 }
-export interface Output {
+export class Output {
     name: string
+
+    constructor(name: string) {
+
+        this.name = name
+    }
 }
 
 type WeightLayers = number[][][]
@@ -30,8 +42,8 @@ export class NeuralNetwork {
     inputLayer: HTMLElement
     perceptronLayers: HTMLElement[]
     perceptronVisualLayers: HTMLElement[][]
-    linesParent: HTMLElement
-    lineLayers: HTMLElement[][][]
+    linesParent: SVGElement
+    lineLayers: SVGElement[][][]
 
     constructor(weightLayers: WeightLayers = [], activationLayers: ActivationLayers = []) {
 
@@ -232,10 +244,12 @@ export class NeuralNetwork {
     
             network.inputLayer.appendChild(inputVisual)
             network.inputLayerVisuals.push(inputVisual)
-    
+/*     
             inputVisual.style.color = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
     
             inputVisual.innerText = activation.toFixed(2)
+             */
+            inputVisual.innerText = activation.toString()
         }
     
         // Perceptrons and layers
@@ -337,10 +351,12 @@ export class NeuralNetwork {
     
             const inputVisual = network.inputLayerVisuals[activationsIndex],
                 activation = inputs[activationsIndex].values
-    
+/*     
             inputVisual.style.color = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
     
             inputVisual.innerText = activation.toFixed(2)
+             */
+            
         }
     
         // Perceptrons and layers
@@ -367,7 +383,7 @@ export class NeuralNetwork {
                 for (let weightIndex = 0; weightIndex < network.weightLayers[layerIndex][activationsIndex].length; weightIndex++) {
     
                     const lineVisual = network.lineLayers[layerIndex][activationsIndex][weightIndex]
-                    lineVisual.setAttribute('text', network.weightLayers[layerIndex][activationsIndex][weightIndex])
+                    lineVisual.setAttribute('text', network.weightLayers[layerIndex][activationsIndex][weightIndex].toString())
                     lineVisual.style.stroke = network.weightLayers[layerIndex][activationsIndex][weightIndex] <= 0 ? networkManager.negativeColor : networkManager.activationColor
                 }
             }

@@ -51,6 +51,9 @@ div {
     display: block;
 }
 
+script {
+    display: none;
+}
 
 /* Network Visuals */
 

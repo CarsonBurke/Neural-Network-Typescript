@@ -1,15 +1,31 @@
-import { NeuralNetwork } from "./neuralNetwork/network"
-import { networkManager } from "./networkManager"
+import { Input, NeuralNetwork, Output } from "./neuralNetwork/network"
+import { networkManager } from "./neuralNetwork/networkManager"
 
 networkManager.initVisuals()
 
 const inputs = [
-        { name: 'X', value: 10 },
-        { name: 'Y', value: 10 },
+    new Input(
+            'X', 
+            [
+                10,
+            ],
+            [
+                '1'
+            ],
+        ),
+        new Input(
+            'Y', 
+            [
+                8,
+            ],
+            [
+                '2'
+            ],
+        ),
     ],
     outputs = [
-        { name: 'X', operation: function() {} },
-        { name: 'Y', operation: function() {} },
+        new Output('Z'),
+        new Output('X'),
     ]
 
 window.addEventListener('load', startNetworks)
@@ -17,7 +33,7 @@ window.addEventListener('load', startNetworks)
 function startNetworks() {
 
     const network = new NeuralNetwork()
-    network.init(inputs.length, outputs.length)
+    network.init(inputs, outputs.length)
     network.createVisuals(inputs, outputs)
 
     const newNetwork = new NeuralNetwork(network.weightLayers, network.activationLayers)
@@ -36,6 +52,6 @@ function runNetworks() {
 
         network.updateVisuals(inputs)
 
-        network.learn()
+        network.mutate()
     }
 }
