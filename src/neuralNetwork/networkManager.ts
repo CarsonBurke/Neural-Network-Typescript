@@ -1,4 +1,4 @@
-import { NeuralNetwork } from "./network"
+
 
 class NetworkManager {
     activationColor = 'rgb(0, 137, 236)'
@@ -34,4 +34,4 @@ class NetworkManager {
     }
 }
 
-export const networkManager = new NetworkManager()
+const networkManager = new NetworkManager()

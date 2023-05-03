@@ -1,7 +1,6 @@
-import { networkManager } from "./networkManager"
-import { mutateDelta, relu } from "./networkUtils"
 
-export class Input {
+
+class Input {
     name: string
     values: number[]
     weightIDs: string[]
@@ -13,7 +12,7 @@ export class Input {
         this.weightIDs = weightIDs
     }
 }
-export class Output {
+class Output {
     name: string
 
     constructor(name: string) {
@@ -25,17 +24,17 @@ export class Output {
 type WeightLayers = number[][][]
 type ActivationLayers = number[][]
 
-export class NeuralNetwork {
+class NeuralNetwork {
     ID: string
-    weightLayers: WeightLayers
+    weightLayers: WeightLayers = []
     /**
      * An ID reference to weights for a set of input perceptrons
      */
-    weightsByID: {[ID: string]: number}
+    weightsByID: {[ID: string]: number} = {}
     /**
      * An input perceptron by input value weight of ids to find the input's weight
      */
-    inputWeightLayers: string[][]
+    inputWeightLayers: string[][] = []
     activationLayers: ActivationLayers
     visualsParent: HTMLElement
     inputLayerVisuals: HTMLElement[]
@@ -47,14 +46,11 @@ export class NeuralNetwork {
 
     constructor(weightLayers: WeightLayers = [], activationLayers: ActivationLayers = []) {
 
-        const network = this
+        this.weightLayers = weightLayers
+        this.activationLayers = activationLayers
 
-        network.weightLayers = weightLayers
-        network.activationLayers = activationLayers
-
-        network.ID = networkManager.newID()
-
-        networkManager.networks[network.ID] = network
+        this.ID = networkManager.newID()
+        networkManager.networks[this.ID] = this
     }
     init(inputs: Input[], outputCount: number) {
     
@@ -101,7 +97,7 @@ export class NeuralNetwork {
     
         const lastLayerIndex = this.activationLayers.length - 1,
             previousLayerOutputCount = this.activationLayers[lastLayerIndex - 1].length
-    
+        
         for (let i1 = 0; i1 < outputCount; i1++) {
     
             this.weightLayers[lastLayerIndex].push([])
@@ -119,7 +115,7 @@ export class NeuralNetwork {
     
         const network = this
     
-        return new NeuralNetwork(network.weightLayers, network.activationLayers)
+        return new NeuralNetwork(Array.from(network.weightLayers), Array.from(network.activationLayers))
     }
     
     forwardPropagate(inputs: Input[]) {
@@ -216,7 +212,7 @@ export class NeuralNetwork {
     
         network.visualsParent.appendChild(descriptionLayerVisual)
         descriptionLayers.push(descriptionLayerVisual)
-    
+        
         for (let activationsIndex = 0; activationsIndex < network.activationLayers[0].length; activationsIndex++) {
     
             const descriptionVisual = document.createElement('p')
@@ -278,6 +274,16 @@ export class NeuralNetwork {
     
                 perceptronVisual.style.borderColor = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
     
+                if (activation <= 0) {
+
+                    perceptronVisual.innerText = '0'
+                    continue
+                }
+                if (activation >= 1000) {
+
+                    perceptronVisual.innerText = activation.toExponential(2)
+                    continue
+                }
                 perceptronVisual.innerText = activation.toFixed(2)
             }
         }
@@ -370,6 +376,16 @@ export class NeuralNetwork {
     
                 perceptronVisual.style.borderColor = activation <= 0 ? networkManager.negativeColor : networkManager.activationColor
     
+                if (activation <= 0) {
+
+                    perceptronVisual.innerText = '0'
+                    continue
+                }
+                if (activation >= 1000) {
+
+                    perceptronVisual.innerText = activation.toExponential(2)
+                    continue
+                }
                 perceptronVisual.innerText = activation.toFixed(2)
             }
         }

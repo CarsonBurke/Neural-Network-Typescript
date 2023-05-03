@@ -1,27 +1,25 @@
-import { Input, NeuralNetwork, Output } from "./neuralNetwork/network"
-import { networkManager } from "./neuralNetwork/networkManager"
 
 networkManager.initVisuals()
 
 const inputs = [
     new Input(
-            'X', 
-            [
-                10,
-            ],
-            [
-                '1'
-            ],
-        ),
-        new Input(
-            'Y', 
-            [
-                8,
-            ],
-            [
-                '2'
-            ],
-        ),
+        'X', 
+        [
+            10,
+        ],
+        [
+            '1'
+        ],
+    ),
+    new Input(
+        'Y', 
+        [
+            8,
+        ],
+        [
+            '2'
+        ],
+    ),
     ],
     outputs = [
         new Output('Z'),
@@ -32,12 +30,16 @@ window.addEventListener('load', startNetworks)
 
 function startNetworks() {
 
-    const network = new NeuralNetwork()
-    network.init(inputs, outputs.length)
-    network.createVisuals(inputs, outputs)
+    const firstNetwork = new NeuralNetwork()
+    firstNetwork.clone()
 
-    const newNetwork = new NeuralNetwork(network.weightLayers, network.activationLayers)
-    newNetwork.createVisuals(inputs, outputs)
+    for (const ID in networkManager.networks) {
+
+        const network = networkManager.networks[ID]
+
+        network.init(inputs, outputs.length)
+        network.createVisuals(inputs, outputs)
+    }
 }
 
 setInterval(runNetworks, 1000)

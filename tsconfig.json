@@ -109,6 +109,6 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "allowUnreachableCode": true,
     "strictNullChecks": false,
-    "sourceMap": true
+    "sourceMap": true,
   }
 }
