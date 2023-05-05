@@ -1,2 +1,2 @@
-# Better-Neural-Network
-An improvement in efficacy on my previous neural network, improving speed and adding backpropagation
+# Neural-Network
+A neural network written in typescript with additional features than is conventional
