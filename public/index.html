@@ -2,46 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="webML">
-    <meta name="description" content="webML">
-    <meta name="theme-color" content="rgb(51, 48, 54)">
-    <meta property="og:image" content="images/webMLIcon.png" />
 
-    <link rel="apple-touch-icon" href="images/webMLIcon.png">
-    <link rel="icon" href="images/webMLIcon.png" type="image/png">
+    <title>Carson Slides Presentation</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Created using Carson Slides" />
+
+    <link rel="icon" href="%PUBLIC_URL%/logo.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="webmanifest" href="%PUBLIC_URL%/manifest.json" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
 
-    <title>WebML</title>
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
 </head>
 
 <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-    <div class="networkManagerParent">
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-        <div class="networkGuide">
-            <div class="colorGuideParent">
-                <div class="colorGuideColor" id="colorGuideActivation"></div>
-                <h3 class="colorGuideText">Positive</h3>
-            </div>
-            <div class="colorGuideParent">
-                <div class="colorGuideColor" id="colorGuideNegative"></div>
-                <h3 class="colorGuideText">Negative</h3>
-            </div>
-        </div>
-    </div>
-
-    <!-- JS Imports -->
-
-    <!-- General -->
-
-    <script src="dist/neuralNetwork/networkUtils.js"></script>
-    <script src="dist/neuralNetwork/networkManager.js"></script>
-    <script src="dist/neuralNetwork/network.js"></script>
-    <script src="dist/index.js"></script>
-
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
 </body>
 
 </html>

@@ -9,10 +9,3 @@ initialize - ensure you have node installed
 ```shell
 npm i
 ```
-
-compile typescript into js
-```shell
-npm run build
-```
-
-then open the index.html file, ideally using a local server
