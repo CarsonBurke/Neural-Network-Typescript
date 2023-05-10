@@ -6,3 +6,4 @@ export function timer(seconds: number) {
         }, seconds * 1000)
     })
 }
+
