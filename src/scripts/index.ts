@@ -42,13 +42,13 @@ function main() {
 function startNetworks(inputs: Input[], outputs: Output[]) {
     
     const firstNetwork = new NeuralNetwork()
+    firstNetwork.init(inputs, outputs.length)
     firstNetwork.clone()
 
     for (const ID in networkManager.networks) {
 
         const network = networkManager.networks[ID]
 
-        network.init(inputs, outputs.length)
         network.createVisuals(inputs, outputs)
     }
 }

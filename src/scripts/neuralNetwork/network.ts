@@ -115,9 +115,11 @@ export class NeuralNetwork {
     
     clone() {
     
-        const network = this
+        const newNetwork = new NeuralNetwork(Array.from(this.weightLayers), Array.from(this.activationLayers))
+        newNetwork.inputWeightLayers = Array.from(this.inputWeightLayers)
+        newNetwork.weightsByID = Object.assign({}, this.weightsByID)
     
-        return new NeuralNetwork(Array.from(network.weightLayers), Array.from(network.activationLayers))
+        return newNetwork
     }
     
     forwardPropagate(inputs: Input[]) {
